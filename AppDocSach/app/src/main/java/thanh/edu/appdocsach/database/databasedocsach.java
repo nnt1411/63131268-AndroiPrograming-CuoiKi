@@ -1,11 +1,15 @@
 package thanh.edu.appdocsach.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
+
+import thanh.edu.appdocsach.model.TaiKhoan;
 
 public class databasedocsach extends SQLiteOpenHelper {
 
@@ -141,5 +145,19 @@ public class databasedocsach extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from "+TABLE_TAIKHOAN , null );
         return res;
+    }
+    //Add tài khoản vào database
+    public void AddTaiKhoan(TaiKhoan taiKhoan) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        //add các dữ liệu thông qua ContentValues
+        ContentValues values = new ContentValues();
+        values.put(TEN_TAI_KHOAN, taiKhoan.getmTenTaiKhoan());
+        values.put(MAT_KHAU, taiKhoan.getmMatKhau());
+        values.put(EMAIL, taiKhoan.getmEmail());
+        values.put(PHAN_QUYEN, taiKhoan.getmPhanQuyen());
+        db.insert(TABLE_TAIKHOAN, null, values);
+        //đóng db
+        db.close();
+        Log.e("ADD TK", "TC");
     }
 }
