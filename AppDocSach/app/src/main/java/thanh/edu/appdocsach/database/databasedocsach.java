@@ -136,5 +136,10 @@ public class databasedocsach extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-
+    //Phương thức lấy tất cả tài khoản
+    public Cursor getData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from "+TABLE_TAIKHOAN , null );
+        return res;
+    }
 }
