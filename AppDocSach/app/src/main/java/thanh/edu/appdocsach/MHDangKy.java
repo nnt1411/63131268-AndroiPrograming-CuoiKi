@@ -47,6 +47,13 @@ public class MHDangKy extends AppCompatActivity {
                 }
             }
         });
+        btnTroLai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentBack = new Intent(MHDangKy.this, MainActivity.class);
+                startActivity(intentBack);
+            }
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
