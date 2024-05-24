@@ -167,4 +167,10 @@ public class databasedocsach extends SQLiteOpenHelper {
         Cursor res =  db.rawQuery( "select * from "+TABLE_TRUYEN+" ORDER BY "+ID_TRUYEN+" DESC LIMIT 3" , null );
         return res;
     }
+    //Lấy tất cả truyện
+    public Cursor getData2(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM "+TABLE_TRUYEN,null);
+        return res;
+    }
 }
