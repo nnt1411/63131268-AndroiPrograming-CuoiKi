@@ -15,6 +15,9 @@
         android:theme="@style/Theme.AppDocSach"
         tools:targetApi="31">
         <activity
+            android:name=".ManNoiDung"
+            android:exported="false" />
+        <activity
             android:name=".ManTimKiem"
             android:exported="false" />
         <activity

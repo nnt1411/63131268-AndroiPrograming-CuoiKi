@@ -1,6 +1,7 @@
 package thanh.edu.appdocsach;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -30,6 +32,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import thanh.edu.appdocsach.R.id;
+import thanh.edu.appdocsach.adapter.adapterTruyen;
+import thanh.edu.appdocsach.database.databasedocsach;
+import thanh.edu.appdocsach.model.Truyen;
 
 public class MHChinh extends AppCompatActivity {
 
@@ -38,15 +43,45 @@ public class MHChinh extends AppCompatActivity {
     NavigationView navigationView;
     ListView listViewSach,listViewThongTin,listViewManHinhChinh;
     DrawerLayout drawerLayout;
+
+    String email;
+    String tentaikhoan;
+
+    ArrayList<Truyen> TruyenArrayList;
+    adapterTruyen adapterTruyen;
+    databasedocsach databasedocsach;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_mhchinh);
 
+        databasedocsach = new databasedocsach(this);
+
+        //Nhận dữ liệu từ màn hình đăng nhập
+        Intent intentpq =getIntent();
+        int i = intentpq.getIntExtra("phanq",0);
+        int idd = intentpq.getIntExtra("idd",0);
+        email = intentpq.getStringExtra("email");
+        tentaikhoan = intentpq.getStringExtra("tentaikhoan");
+
         AnhXa();
         ActionBar();
         ActionViewFlipper();
+
+        //sự kiện khi click vào sách
+        listViewSach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intentNoiDung = new Intent(MHChinh.this, ManNoiDung.class);
+                String tent =TruyenArrayList.get(position).getTenTruyen();
+                String noidungt =TruyenArrayList.get(position).getNoiDung();
+                intentNoiDung.putExtra("tentruyen",tent);
+                intentNoiDung.putExtra("noidung",noidungt);
+                startActivity(intentNoiDung);
+            }
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -102,6 +137,22 @@ public class MHChinh extends AppCompatActivity {
         listViewThongTin = findViewById(R.id.listViewThongTin);
         navigationView = findViewById(R.id.navigationView);
         drawerLayout = findViewById(R.id.drawerlayout);
+
+        TruyenArrayList = new ArrayList<>();
+        Cursor cursor1= databasedocsach.getData1();
+        while (cursor1.moveToNext()){
+            int id = cursor1.getInt(0);
+            String tentruyen = cursor1.getString(1);
+            String noidung = cursor1.getString(2);
+            String anh = cursor1.getString(3);
+            int id_tk = cursor1.getInt(4);
+
+            TruyenArrayList.add(new Truyen(id,tentruyen,noidung,anh,id_tk));
+            adapterTruyen = new adapterTruyen(getApplicationContext(),TruyenArrayList);
+            listViewSach.setAdapter(adapterTruyen);
+        }
+        cursor1.moveToFirst();
+        cursor1.close();
     }
 
     //nạp menu tìm kiếm vào action bar
