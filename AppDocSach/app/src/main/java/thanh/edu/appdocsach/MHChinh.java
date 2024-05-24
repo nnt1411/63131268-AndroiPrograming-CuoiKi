@@ -99,18 +99,25 @@ public class MHChinh extends AppCompatActivity {
         listViewManHinhChinh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //đăng truyện
                 if(position==0){
                     if(i==2){
-
+                        Intent intentAdmin = new Intent(MHChinh.this, ManAdmin.class);
+                        intentAdmin.putExtra("Id",idd);
+                        startActivity(intentAdmin);
                     }
                     else {
+                        //nếu không phải admin thì không cho vào
                         Toast.makeText(MHChinh.this,"Bạn không có quyền đăng truyện",Toast.LENGTH_SHORT).show();
                         Log.e("ĐĂNG TRUYỆN","bạn không có quyền");
                     }
                 }
+                //nếu ấn vào phần thông tin sẽ chuyển trang sang thông tin
                 else if(position==1){
-
+                    Intent intentManThongTin = new Intent(MHChinh.this,ManThongTin.class);
+                    startActivity(intentManThongTin);
                 }
+                //Chuyển về màn hình đăng nhập nếu ấn đăng xuất
                 else if(position==2){
                     finish();
                 }
