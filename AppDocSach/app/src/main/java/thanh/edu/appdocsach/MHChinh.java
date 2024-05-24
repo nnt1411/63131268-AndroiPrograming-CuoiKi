@@ -3,6 +3,7 @@ package thanh.edu.appdocsach;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,8 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.activity.EdgeToEdge;
@@ -33,7 +36,11 @@ import java.util.ArrayList;
 
 import thanh.edu.appdocsach.R.id;
 import thanh.edu.appdocsach.adapter.adapterTruyen;
+import thanh.edu.appdocsach.adapter.adapterchuyenmuc;
+import thanh.edu.appdocsach.adapter.adapterthongtin;
 import thanh.edu.appdocsach.database.databasedocsach;
+import thanh.edu.appdocsach.model.ChuyenMuc;
+import thanh.edu.appdocsach.model.TaiKhoan;
 import thanh.edu.appdocsach.model.Truyen;
 
 public class MHChinh extends AppCompatActivity {
@@ -47,8 +54,13 @@ public class MHChinh extends AppCompatActivity {
     String email;
     String tentaikhoan;
 
+    ArrayList<ChuyenMuc> chuyenMucArrayList;
+    ArrayList<TaiKhoan> taiKhoanArrayList;
     ArrayList<Truyen> TruyenArrayList;
     adapterTruyen adapterTruyen;
+    adapterchuyenmuc adapterchuyenmuc;
+    adapterthongtin adapterthongtin;
+
     databasedocsach databasedocsach;
 
     @Override
@@ -80,6 +92,28 @@ public class MHChinh extends AppCompatActivity {
                 intentNoiDung.putExtra("tentruyen",tent);
                 intentNoiDung.putExtra("noidung",noidungt);
                 startActivity(intentNoiDung);
+            }
+        });
+
+        //sự kiện click vào item của listview cu drawer phần listview thông tin
+        listViewManHinhChinh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position==0){
+                    if(i==2){
+
+                    }
+                    else {
+                        Toast.makeText(MHChinh.this,"Bạn không có quyền đăng truyện",Toast.LENGTH_SHORT).show();
+                        Log.e("ĐĂNG TRUYỆN","bạn không có quyền");
+                    }
+                }
+                else if(position==1){
+
+                }
+                else if(position==2){
+                    finish();
+                }
             }
         });
 
@@ -153,7 +187,24 @@ public class MHChinh extends AppCompatActivity {
         }
         cursor1.moveToFirst();
         cursor1.close();
+
+        //Thông tin tài khoảm
+        taiKhoanArrayList = new ArrayList<>();
+        taiKhoanArrayList.add(new TaiKhoan(tentaikhoan,email));
+
+        adapterthongtin = new adapterthongtin(this,R.layout.navigation_thongtin,taiKhoanArrayList);
+        listViewThongTin.setAdapter(adapterthongtin);
+
+        //chuyên mục
+        chuyenMucArrayList = new ArrayList<>();
+        chuyenMucArrayList.add(new ChuyenMuc("ĐĂNG TRUYỆN",R.drawable.ic_dangtruyen));
+        chuyenMucArrayList.add(new ChuyenMuc("THÔNG TIN APP",R.drawable.ic_thongtin));
+        chuyenMucArrayList.add(new ChuyenMuc("ĐĂNG XUẤT",R.drawable.ic_dangxuat));
+
+        adapterchuyenmuc = new adapterchuyenmuc(this,R.layout.chuyenmuc,chuyenMucArrayList);
+        listViewManHinhChinh.setAdapter(adapterchuyenmuc);
     }
+
 
     //nạp menu tìm kiếm vào action bar
     @Override
