@@ -1,5 +1,6 @@
 package thanh.edu.appdocsach;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -54,14 +55,7 @@ public class ManAdmin extends AppCompatActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                int idtruyen = TruyenArrayList.get(position).getID();
-                //Xóa trong SQL
-                databasedocsach.Delete(idtruyen);
-                //Cập nhật lại listview
-                Intent intent = new Intent(ManAdmin.this,ManAdmin.class);
-                finish();
-                startActivity(intent);
-                Toast.makeText(ManAdmin.this,"Xóa truyện thành công",Toast.LENGTH_SHORT).show();
+                DialogDelete(position);
                 return false;
             }
         });
@@ -94,5 +88,41 @@ public class ManAdmin extends AppCompatActivity {
         }
         cursor1.moveToFirst();
         cursor1.close();
+    }
+    //Dialog xác nhận xóa
+    private void DialogDelete(int position) {
+
+        //Tạo đối tượng cửa sổ dialog
+        Dialog dialog = new Dialog(this);
+
+        //Nạp layout vào
+        dialog.setContentView(R.layout.dialogdelete);
+        //Click No mới thoát, click ngoài ko thoát
+        dialog.setCanceledOnTouchOutside(false);
+
+        //Ánh xạ
+        Button btnYes = dialog.findViewById(R.id.buttonYes);
+        Button btnNo = dialog.findViewById(R.id.buttonNo);
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int idtruyen = TruyenArrayList.get(position).getID();
+                //Xóa trong SQL
+                databasedocsach.Delete(idtruyen);
+                //Cập nhật lại listview
+                Intent intent = new Intent(ManAdmin.this, ManAdmin.class);
+                finish();
+                startActivity(intent);
+                Toast.makeText(ManAdmin.this, "Xóa truyện thành công", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
     }
 }
