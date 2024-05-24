@@ -103,6 +103,7 @@ public class MHChinh extends AppCompatActivity {
                 if(position==0){
                     if(i==2){
                         Intent intentAdmin = new Intent(MHChinh.this, ManAdmin.class);
+                        //gửi id tài khoản sang màn hình admin
                         intentAdmin.putExtra("Id",idd);
                         startActivity(intentAdmin);
                     }
@@ -123,6 +124,7 @@ public class MHChinh extends AppCompatActivity {
                 }
             }
         });
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

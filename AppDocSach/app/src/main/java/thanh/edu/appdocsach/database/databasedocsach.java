@@ -10,6 +10,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import thanh.edu.appdocsach.model.TaiKhoan;
+import thanh.edu.appdocsach.model.Truyen;
 
 public class databasedocsach extends SQLiteOpenHelper {
 
@@ -168,9 +169,32 @@ public class databasedocsach extends SQLiteOpenHelper {
         return res;
     }
     //Lấy tất cả truyện
-    public Cursor getData2(){
+    public Cursor getData2() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM "+TABLE_TRUYEN,null);
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_TRUYEN, null);
         return res;
+    }
+
+    //Thêm truyện
+    public void AddTruyen(Truyen truyen){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(TEN_TRUYEN,truyen.getTenTruyen());
+        values.put(NOI_DUNG,truyen.getNoiDung());
+        values.put(IMAGE,truyen.getAnh());
+        values.put(ID_TAI_KHOAN,truyen.getID_TK());
+
+        db.insert(TABLE_TRUYEN,null,values);
+        db.close();
+        Log.e("Add Truyện : ","Thành công");
+    }
+    //Xóa truyện với id = i
+    public int Delete(int i){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        int res = db.delete("truyen",ID_TRUYEN+" = "+i,null);
+        return res;
+
     }
 }
