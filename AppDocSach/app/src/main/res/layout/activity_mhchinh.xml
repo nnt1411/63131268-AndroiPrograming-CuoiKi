@@ -15,12 +15,12 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarManHinhChinh"
                 android:title="THƯ VIỆN SÁCH"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize">
-            </Toolbar>
+            </androidx.appcompat.widget.Toolbar>
             <ViewFlipper
                 android:id="@+id/viewFlipper"
                 android:layout_width="match_parent"

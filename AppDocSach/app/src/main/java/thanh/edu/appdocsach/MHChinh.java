@@ -1,16 +1,25 @@
 package thanh.edu.appdocsach;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import android.widget.ViewFlipper;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
+import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -19,6 +28,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import thanh.edu.appdocsach.R.id;
 
 public class MHChinh extends AppCompatActivity {
 
@@ -34,6 +45,7 @@ public class MHChinh extends AppCompatActivity {
         setContentView(R.layout.activity_mhchinh);
 
         AnhXa();
+        ActionBar();
         ActionViewFlipper();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -41,6 +53,20 @@ public class MHChinh extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+    //phương thức của thanh actionbar và toolbar
+    private void ActionBar(){
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(android.R.drawable.ic_menu_sort_by_size); //tạo icon cho toolbar
+        //sự kiện khi click toolbar
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
     }
 
     //phương thức viewflipper
@@ -76,5 +102,26 @@ public class MHChinh extends AppCompatActivity {
         listViewThongTin = findViewById(R.id.listViewThongTin);
         navigationView = findViewById(R.id.navigationView);
         drawerLayout = findViewById(R.id.drawerlayout);
+    }
+
+    //nạp menu tìm kiếm vào action bar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mymenu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu1:
+                //chuyển sang màn hình tìm kiếm nếu bấm vào icon tìm kiếm
+                Intent intentTimKiem= new Intent(MHChinh.this,ManTimKiem.class);
+                startActivity(intentTimKiem);
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
