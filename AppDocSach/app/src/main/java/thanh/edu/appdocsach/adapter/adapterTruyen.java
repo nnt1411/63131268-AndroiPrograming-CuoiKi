@@ -40,6 +40,12 @@ public class adapterTruyen extends BaseAdapter {
         return position;
     }
 
+    //fillter
+    public void filterList(ArrayList<Truyen> filteredList) {
+        listtruyen = filteredList;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder{
         TextView txtTenTruyen;
         ImageView imageTruyen;

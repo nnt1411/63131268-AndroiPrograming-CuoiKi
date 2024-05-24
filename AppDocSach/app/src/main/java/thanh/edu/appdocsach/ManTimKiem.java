@@ -3,6 +3,8 @@ package thanh.edu.appdocsach;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -25,7 +27,7 @@ public class ManTimKiem extends AppCompatActivity {
     ListView listView;
     EditText edt;
     ArrayList<Truyen> truyenArrayList;
-    //ArrayList<Truyen> arrayList;
+    ArrayList<Truyen> arrayList;
 
     adapterTruyen adapterTruyen;
     databasedocsach databasedocsach;
@@ -44,13 +46,30 @@ public class ManTimKiem extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ManTimKiem.this,ManNoiDung.class);
-                String tent =   truyenArrayList.get(position).getTenTruyen();
-                String noidungt = truyenArrayList.get(position).getNoiDung();
+                String tent =   arrayList.get(position).getTenTruyen();
+                String noidungt = arrayList.get(position).getNoiDung();
                 intent.putExtra("tentruyen",tent);
                 intent.putExtra("noidung",noidungt);
                 //Log.e("Tên truyện : ",tent);
                 startActivity(intent);
             }
+        });
+
+        //edittext search
+        edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+
         });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -60,10 +79,29 @@ public class ManTimKiem extends AppCompatActivity {
         });
     }
 
+    //Chức năng tìm kiếm
+    private void filter(String text){
+
+        //xóa sau mỗi lần gọi tới filter
+        arrayList.clear();
+
+        ArrayList<Truyen> filteredList = new ArrayList<>();
+
+        for(Truyen item : truyenArrayList){
+            if (item.getTenTruyen().toLowerCase().contains(text.toLowerCase())){
+                //thêm item vào filterlist
+                filteredList.add(item);
+                //Thêm dữ liệu để hiển thị ra item nội dung
+                arrayList.add(item);
+            }
+        }
+        adapterTruyen.filterList(filteredList);
+    }
+
     //Hàm  gán dữ liệu từ CSDL vào listview
     public void initList(){
         truyenArrayList = new ArrayList<>();
-        //arrayList = new ArrayList<>();
+        arrayList = new ArrayList<>();
         databasedocsach = new databasedocsach(this);
 
         Cursor cursor = databasedocsach.getData2();
@@ -75,10 +113,9 @@ public class ManTimKiem extends AppCompatActivity {
             String anh = cursor.getString(3);
             int id_tk = cursor.getInt(4);
 
-
             //Thêm dữ liệu vào mảng
             truyenArrayList.add(new Truyen(id,tentruyen,noidung,anh,id_tk));
-
+            arrayList.add(new Truyen(id,tentruyen,noidung,anh,id_tk));
             adapterTruyen = new adapterTruyen(getApplicationContext(),truyenArrayList);
             //adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,TruyenArrayList);
             listView.setAdapter(adapterTruyen);
