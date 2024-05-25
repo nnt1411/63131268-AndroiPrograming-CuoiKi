@@ -5,65 +5,100 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".MHDangKy">
 
-    <ImageView
-        android:id="@+id/iconApp"
-        android:src="@drawable/iconapp"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_centerHorizontal="true"/>
+
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/txtTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iconApp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
         android:text="ĐĂNG KÝ TÀI KHOẢN"
-        android:textSize="30sp"/>
-    <EditText
-        android:id="@+id/edtDKTKhoan"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:layout_marginTop="80dp" />
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="  Nhập tài khoản"
-        android:layout_below="@id/iconApp"
-        android:layout_marginTop="100dp"
-        android:drawableStart="@drawable/user"
-        android:textSize="25sp"/>
-    <EditText
-        android:id="@+id/edtDKMatKhau"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edtDKTKhoan"
-        android:hint="  Nhập mật khẩu"
-        android:inputType="textPassword"
-        android:layout_marginTop="10dp"
-        android:drawableStart="@drawable/passicon"
-        android:textSize="25sp"/>
-    <EditText
-        android:id="@+id/edtDKMail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edtDKMatKhau"
-        android:hint="  Nhập email"
-        android:inputType="textEmailAddress"
-        android:layout_marginTop="10dp"
-        android:drawableStart="@drawable/baseline_alternate_email_24"
-        android:textSize="25sp"/>
-    <Button
-        android:id="@+id/dangKyBtn"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="85dp"
-        android:text="ĐĂNG KÝ"/>
-    <Button
-        android:id="@+id/backBtn"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:text="TRỎ LẠI" />
+        android:layout_below="@id/txtTitle"
+        android:layout_margin="30dp"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
+
+            <EditText
+                android:id="@+id/edtDKTKhoan"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/user"
+                android:drawablePadding="8dp"
+                android:hint="Nhập tài khoản"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background"
+                android:textSize="16sp"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:id="@+id/edtDKMatKhau"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/passicon"
+                android:drawablePadding="8dp"
+                android:hint="Nhập mật khẩu"
+                android:padding="8dp"
+                android:inputType="textPassword"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background"
+                android:textSize="16sp"
+                android:layout_below="@id/edtDKTKhoan"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:id="@+id/edtDKMail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/baseline_alternate_email_24"
+                android:drawablePadding="8dp"
+                android:hint="Nhập email"
+                android:padding="8dp"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background"
+                android:textSize="16sp"
+                android:layout_below="@id/edtDKMatKhau"
+                android:layout_marginTop="20dp"/>
+
+            <Button
+                android:id="@+id/dangKyBtn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="ĐĂNG KÝ"
+                android:textSize="18sp"
+                android:layout_below="@id/edtDKMail"
+                android:layout_marginTop="30dp"
+                app:cornerRadius="20dp"/>
+            <Button
+                android:id="@+id/backBtn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="TRỞ LẠI"
+                android:layout_below="@id/dangKyBtn"
+                android:textSize="18sp"
+                android:layout_marginBottom="30dp"
+                app:cornerRadius="20dp"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
 </RelativeLayout>
