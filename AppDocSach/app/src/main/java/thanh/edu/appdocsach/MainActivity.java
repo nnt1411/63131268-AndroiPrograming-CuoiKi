@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //con trỏ lấy dữ liệu
                 Cursor cursor = databasedocsach.getData();
+                boolean found = false; // Kiểm tra xem có đăng nhập thành công không
                 //thực hiện vòng lặp để lấy dữ liệu
                 //tài khoản ở ô 1, mk ô 2, 0 là id, 3 email, 4 phân quyền
                 while (cursor.moveToNext()){
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
                     String dataMauKhau = cursor.getString(2);
                     //nếu dữ liệu được nhập khớp với database
                     if (dataTenTaiKhoan.equals(tenTaiKhoan)&&dataMauKhau.equals(matKhau)){
+                        found = true;
+
                         int phanQuyen = cursor.getInt(4);
                         int idd = cursor.getInt(0);
                         String email = cursor.getString(3);
@@ -66,7 +70,12 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("tentaikhoan",tentk);
 
                         startActivity(intent);
+                        break;
                     }
+                }
+                // Nếu đăng nhập không được thì báo lỗi
+                if (!found) {
+                    Toast.makeText(MainActivity.this, "Tên tài khoản hoặc mật khẩu không chính xác!", Toast.LENGTH_LONG).show();
                 }
                 //trả con trỏ về đầu và đóng
                 cursor.moveToFirst();

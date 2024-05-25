@@ -1,6 +1,7 @@
 package thanh.edu.appdocsach;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,13 +38,29 @@ public class MHDangKy extends AppCompatActivity {
                 String taikhoan = editTextDKTaiKhoan.getText().toString();
                 String matkhau = editTextDKMatKhau.getText().toString();
                 String mail = editTextDKMail.getText().toString();
-                TaiKhoan taiKhoan1 = CreateTaiKhoan();
-                if(taikhoan.equals("")||matkhau.equals("")||mail.equals("")){
-                    Log.e("Thông báo:","Chưa nhập đủ thng tin");
-                }
-                else {
-                    databasedocsach.AddTaiKhoan(taiKhoan1);
-                    Toast.makeText(MHDangKy.this,"Đăng ký thành công",Toast.LENGTH_SHORT).show();
+
+                if(taikhoan.isEmpty() || matkhau.isEmpty() || mail.isEmpty()) {
+                    Toast.makeText(MHDangKy.this, "Chưa đủ thông tin", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Kiểm tra xem tài khoản đã tồn tại hay chưa
+                    Cursor cursor = databasedocsach.getData(); // Giả sử phương thức này trả về tất cả dữ liệu người dùng
+                    boolean accountExists = false;
+
+                    while(cursor.moveToNext()) {
+                        if(cursor.getString(1).equalsIgnoreCase(taikhoan)) {
+                            accountExists = true;
+                            break;
+                        }
+                    }
+                    cursor.close();
+
+                    if(accountExists) {
+                        Toast.makeText(MHDangKy.this, "Tài khoản đã tồn tại", Toast.LENGTH_SHORT).show();
+                    } else {
+                        TaiKhoan taiKhoanMoi = new TaiKhoan(taikhoan, matkhau, mail, 1);
+                        databasedocsach.AddTaiKhoan(taiKhoanMoi);
+                        Toast.makeText(MHDangKy.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
