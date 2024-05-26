@@ -51,7 +51,7 @@ public class adapterchuyenmuc extends BaseAdapter {
         ChuyenMuc cm = chuyenMucList.get(position);
 
         txt.setText(cm.getTenchuyenmuc());
-        Picasso.get().load(cm.getHinhanhchuyenmuc()).placeholder(R.drawable.baseline_cloud_download_24).error(R.drawable.baseline_image_24).into(img);
+        Picasso.get().load(cm.getHinhanhchuyenmuc()).placeholder(R.drawable.ic_menu).into(img);
 
         return convertView;
     }

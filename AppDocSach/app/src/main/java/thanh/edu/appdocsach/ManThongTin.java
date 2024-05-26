@@ -19,8 +19,13 @@ public class ManThongTin extends AppCompatActivity {
         setContentView(R.layout.activity_man_thong_tin);
 
         txtThongTinApp =findViewById(R.id.textviewthongtin);
-        String thongtin = "LẬP TRÌNH ỨNG DỤNG DI ĐỘNG BÀI TẬP CUỐI KÌ\n"+
-                "63131268 NGUYỄN NGỌC THÀNH";
+        String thongtin = "LẬP TRÌNH ỨNG DỤNG DI ĐỘNG BÀI TẬP CUỐI KÌ\n\n" +
+                            "Tính năng chính:\n" +
+                            "- Đọc sách offline.\n" +
+                            "- CSDL sử dụng SQLite\n" +
+                            "- Đằng tryện mới bằng quyền admin\n" +
+                            "- Tìm kiếm truyện\n" +
+                            "Liên hệ hỗ trợ: abc@appdocsach.com";
         txtThongTinApp.setText(thongtin);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
