@@ -28,6 +28,7 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
@@ -38,6 +39,7 @@ import thanh.edu.appdocsach.R.id;
 import thanh.edu.appdocsach.adapter.adapterTruyen;
 import thanh.edu.appdocsach.adapter.adapterchuyenmuc;
 import thanh.edu.appdocsach.adapter.adapterthongtin;
+import thanh.edu.appdocsach.adapter.apdapterSlide;
 import thanh.edu.appdocsach.database.databasedocsach;
 import thanh.edu.appdocsach.model.ChuyenMuc;
 import thanh.edu.appdocsach.model.TaiKhoan;
@@ -46,7 +48,7 @@ import thanh.edu.appdocsach.model.Truyen;
 public class MHChinh extends AppCompatActivity {
 
     Toolbar toolbar;
-    ViewFlipper viewFlipper;
+    ViewPager2 viewPager2;
     NavigationView navigationView;
     ListView listViewSach,listViewThongTin,listViewManHinhChinh;
     DrawerLayout drawerLayout;
@@ -60,6 +62,7 @@ public class MHChinh extends AppCompatActivity {
     adapterTruyen adapterTruyen;
     adapterchuyenmuc adapterchuyenmuc;
     adapterthongtin adapterthongtin;
+    apdapterSlide adapterSlide;
 
     databasedocsach databasedocsach;
 
@@ -80,7 +83,7 @@ public class MHChinh extends AppCompatActivity {
 
         AnhXa();
         ActionBar();
-        ActionViewFlipper();
+        setupViewPager();
 
         //sự kiện khi click vào sách
         listViewSach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -147,34 +150,16 @@ public class MHChinh extends AppCompatActivity {
 
     }
 
-    //phương thức viewflipper
-    private void ActionViewFlipper() {
-        ArrayList<String> mangQuangCao = new ArrayList<>();
-        //add ảnh vào bảng sử dụng thư viện picasso để link ảnh
-        mangQuangCao.add("https://sachhay24h.com/uploads/images/sach-gia-tri-cua-su-tu-te-1.jpeg");
-        mangQuangCao.add("https://sachhay24h.com/uploads/images/canh-dong-bat-tan-nguyen-ngoc-tu-1.jpg");
-        mangQuangCao.add("https://sachhay24h.com/uploads/images/truyen-co-tich-the-tuc-su-tich-trau-cau.jpg");
-        mangQuangCao.add("https://sachhay24h.com/uploads/images/truyen-co-tich-viet-nam-qua-bau-tien-1.jpg");
-        //thực hiện vòng lặp gán ảnh lên imageview, từ view lên app
-        for (int i=0;i<mangQuangCao.size();i++){
-            ImageView imageView = new ImageView(getApplicationContext());
-            Picasso.get().load(mangQuangCao.get(i)).into(imageView);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            viewFlipper.addView(imageView);
-        }
-        //cho viewflip chạy tự động
-        viewFlipper.setFlipInterval(4000);
-        viewFlipper.setAutoStart(true);
-        //gọi animation tạo ở file anim vào flipper
-        Animation animation_slide_in = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_in_right);
-        Animation animation_slide_out = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_out_right);
-        viewFlipper.setInAnimation(animation_slide_in);
-        viewFlipper.setInAnimation(animation_slide_out);
+    //Phương thức của viewpager2
+    private void setupViewPager() {
+        viewPager2 = findViewById(id.ViewPager2Slide);
+        adapterSlide = new apdapterSlide(this, TruyenArrayList);
+        viewPager2.setAdapter(adapterSlide);
     }
 
     private void AnhXa() {
         toolbar = findViewById(R.id.toolbarManHinhChinh);
-        viewFlipper = findViewById(R.id.viewFlipper);
+        viewPager2 = findViewById(id.ViewPager2Slide);
         listViewSach = findViewById(R.id.listViewSach);
         listViewManHinhChinh = findViewById(R.id.listViewManHinhChinh);
         listViewThongTin = findViewById(R.id.listViewThongTin);

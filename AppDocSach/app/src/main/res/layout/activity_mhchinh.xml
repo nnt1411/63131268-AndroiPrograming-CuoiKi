@@ -21,11 +21,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize">
             </androidx.appcompat.widget.Toolbar>
-            <ViewFlipper
-                android:id="@+id/viewFlipper"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/ViewPager2Slide"
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
-            </ViewFlipper>
+                android:layout_height="250dp">
+            </androidx.viewpager2.widget.ViewPager2>
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
