@@ -25,7 +25,7 @@ public class databasedocsach extends SQLiteOpenHelper {
     private static String MAT_KHAU = "matkhau";
     private static String PHAN_QUYEN = "phanquyen";
     private static String EMAIL = "email";
-    private static int VERSION = 1;
+    private static int VERSION = 2;
 
     //bảng sách
     private static String TABLE_TRUYEN = "truyen";
@@ -165,7 +165,7 @@ public class databasedocsach extends SQLiteOpenHelper {
     //Lấy 3 truyện mới nhất
     public Cursor getData1(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+TABLE_TRUYEN+" ORDER BY "+ID_TRUYEN+" DESC LIMIT 3" , null );
+        Cursor res =  db.rawQuery( "select * from "+TABLE_TRUYEN+" ORDER BY "+ID_TRUYEN+" DESC LIMIT 5" , null );
         return res;
     }
     //Lấy tất cả truyện
@@ -196,5 +196,18 @@ public class databasedocsach extends SQLiteOpenHelper {
         int res = db.delete("truyen",ID_TRUYEN+" = "+i,null);
         return res;
 
+    }
+    // Phương thức cập nhật truyện
+    public int updateTruyen(int idTruyen, String tenTruyenMoi, String noiDungMoi, String anhMoi) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(TEN_TRUYEN, tenTruyenMoi);
+        values.put(NOI_DUNG, noiDungMoi);
+        values.put(IMAGE, anhMoi);
+
+        // Cập nhật bản ghi có ID_TRUYEN tương ứng
+        int result = db.update(TABLE_TRUYEN, values, ID_TRUYEN + " = ?", new String[]{String.valueOf(idTruyen)});
+        db.close();
+        return result;
     }
 }
