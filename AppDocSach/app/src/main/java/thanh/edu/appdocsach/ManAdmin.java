@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -57,6 +58,13 @@ public class ManAdmin extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 DialogDelete(position);
                 return false;
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DialogUpdate(position);
             }
         });
 
@@ -123,6 +131,38 @@ public class ManAdmin extends AppCompatActivity {
                 dialog.cancel();
             }
         });
+        dialog.show();
+    }
+    // Dialog cập nhật truyện
+    private void DialogUpdate(int position) {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialogupdate);
+        dialog.setCanceledOnTouchOutside(false);
+
+        Button btnYes = dialog.findViewById(R.id.buttonYesUpdate);
+        Button btnNo = dialog.findViewById(R.id.buttonNoUpdate);
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Truyen truyen = TruyenArrayList.get(position);
+                Intent intent = new Intent(ManAdmin.this, ManEdit.class);
+                intent.putExtra("ID", truyen.getID());
+                intent.putExtra("TenTruyen", truyen.getTenTruyen());
+                intent.putExtra("NoiDung", truyen.getNoiDung());
+                intent.putExtra("Anh", truyen.getAnh());
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
         dialog.show();
     }
 }

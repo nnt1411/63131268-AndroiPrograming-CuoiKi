@@ -15,6 +15,9 @@
         android:theme="@style/Theme.AppDocSach"
         tools:targetApi="31">
         <activity
+            android:name=".ManEdit"
+            android:exported="false" />
+        <activity
             android:name=".ManDangBai"
             android:exported="false" />
         <activity

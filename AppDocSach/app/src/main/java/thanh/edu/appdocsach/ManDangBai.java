@@ -49,8 +49,8 @@ public class ManDangBai extends AppCompatActivity {
                 else{
                     databasedocsach.AddTruyen(truyen);
                     Intent intent = new Intent(ManDangBai.this,ManAdmin.class);
-                    finish();
                     startActivity(intent);
+                    finish();
                     Toast.makeText(ManDangBai.this,"Thêm truyện thành công",Toast.LENGTH_SHORT).show();
                 }
             }

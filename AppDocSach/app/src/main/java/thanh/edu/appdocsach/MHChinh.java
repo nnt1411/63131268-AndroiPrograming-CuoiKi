@@ -226,7 +226,7 @@ public class MHChinh extends AppCompatActivity {
 
         //chuyên mục
         chuyenMucArrayList = new ArrayList<>();
-        chuyenMucArrayList.add(new ChuyenMuc("ĐĂNG TRUYỆN",R.drawable.ic_dangtruyen));
+        chuyenMucArrayList.add(new ChuyenMuc("QUẢN LÝ TRUYỆN",R.drawable.ic_dangtruyen));
         chuyenMucArrayList.add(new ChuyenMuc("THÔNG TIN APP",R.drawable.ic_thongtin));
         chuyenMucArrayList.add(new ChuyenMuc("ĐĂNG XUẤT",R.drawable.ic_dangxuat));
 
