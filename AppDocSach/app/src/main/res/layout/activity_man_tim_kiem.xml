@@ -5,24 +5,34 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".ManTimKiem">
+    android:background="@drawable/gradient_bg"
+    tools:context=".ManTimKiem"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <LinearLayout
-        android:layout_margin="5dp"
-        android:orientation="vertical"
+    <EditText
+        android:id="@+id/timkiem"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <EditText
-            android:hint="Tìm kiếm"
-            android:id="@+id/timkiem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </EditText>
-        <ListView
-            android:id="@+id/listviewtimkiem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </ListView>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:hint="Tìm kiếm"
+        android:padding="12dp"
+        android:background="@drawable/rounded_edittext"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        android:drawableStart="@drawable/baseline_search_24"
+        android:drawablePadding="8dp"
+        android:inputType="text" />
+
+    <ListView
+        android:id="@+id/listviewtimkiem"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:background="@android:color/white" />
+
 </LinearLayout>

@@ -2,4 +2,19 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background_color">#F5F5F5</color>
+    <color name="primary_color">#00BCD4</color>
+    <color name="text_color">#333333</color>
+    <color name="secondary_text_color">#757575</color>
+    <color name="address">#CCCCCC</color>
+    <color name="followersBg">#03A9F4</color>
+    <color name="followingBg">#4CAF50</color>
+    <color name="grey">#BDBDBD</color>
+    <color name="headings">#757575</color>
+    <color name="gradEnd">#67EFC8</color>
+    <color name="gradStart">#63C9FF</color>
+    <color name="circleBorder">#50FFFFFF</color>
+    <color name="solidCircle">#AAFFFFFF</color>
+    <color name="divider_color">#BDBDBD</color>
+    <color name="list_background">#FFFFFF</color>
 </resources>
